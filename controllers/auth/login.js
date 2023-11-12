@@ -9,7 +9,7 @@ async function loginController (req, res) {
 
     const loginSchema = joi.object({
         email: joi.string().email().required('email is required'),
-        password: joi.string().required('password is required').min(8).max(16)
+        password: joi.string().required('password is required').min(6).max(16)
     });
 
     const { error: validationError } = loginSchema.validate({ email, password });

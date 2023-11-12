@@ -68,14 +68,13 @@ io.on('connection', async(socket) => {
 
     const newNotif = await notificationModel.create({
       message: `Your order of ${orderToEdit.itemName} is now ${payload.newStatus}`,
-      user: orderToEdit.customerId,
+      sendTo: orderToEdit.customerId,
       order: payload.id
     });
 
     const usersToSendTo = await connectedUsersModel.find({ user: orderToEdit.customerId });
 
     const userSockets = usersToSendTo.map(user => user.socketId);
-    // if (!userToSendTo) return;
 
     socket.to(userSockets).emit('new-notification', {
       message: newNotif.message

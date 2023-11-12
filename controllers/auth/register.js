@@ -11,6 +11,7 @@ async function registerController (req, res) {
         role: joi.string(),
         password: joi.string().min(6).required()
     });
+    
     const { error: validationError } = validationSchema.validate(req.body);
     if (validationError) return res.send(validationError);
 
